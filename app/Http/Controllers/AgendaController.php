@@ -13,28 +13,37 @@ class AgendaController extends Controller
     {
         $id = $request->user()->id;
         if($id){
-            $agendas = Agenda::where('user_id', $id)->orderBy('tanggal_kegiatan', 'asc')->orderBy('time_start', 'asc')->get();
+            $agendas = Agenda::where('user_id', $id)
+                             ->orderBy('tanggal_kegiatan', 'asc')
+                             ->orderBy('time_start', 'asc')
+                             ->get();
+
+         // Menghitung jumlah agenda yang belum selesai
+         $unreadCount = $agendas->count();
+
         } else {
-            $agenda = Agenda::all();
+            $agendas = Agenda::all();
+            $unreadCount = $agendas->count();
         }
         // Mengirim data agenda ke view index.blade.php
-        return view('agenda.index', compact('agendas'));
+        return view('agenda.index', compact('agendas', 'unreadCount'));
     }
     
     
     public function myAgenda(Request $request)
     {
         $id = $request->user()->id;
-
         $agendas = Agenda::where('user_id', $id)->orderBy('tanggal_kegiatan', 'asc')->get();
-        return view('agenda.myagenda', compact('agendas'));
+        $unreadCount = $agendas->count();
+        return view('agenda.myagenda', compact('agendas', 'unreadCount'));
     }
     
     // Tampilkan form tambah agenda
     public function create()
     {
         $agendas = Agenda::all();
-        return view('agenda.form', compact('agendas')); // Menampilkan halaman form
+        $unreadCount = $agendas->count();
+        return view('agenda.form', compact('agendas', 'unreadCount')); // Menampilkan halaman form
         
     }
     
@@ -63,9 +72,10 @@ class AgendaController extends Controller
     public function edit($id)
     {
         $agendas = Agenda::all();
+        $unreadCount = $agendas->count();
         $edit = Agenda::FindOrFail($id);
         // dd($agendas);
-        return view('agenda.edit', compact('agendas', 'edit'))
+        return view('agenda.edit', compact('agendas', 'edit', 'unreadCount'))
                     ->with('type', 'update');
     }
 
@@ -90,10 +100,11 @@ class AgendaController extends Controller
             'is_done' => $request->has('is_done') ? true : false
         ]);
 
-
+       $unreadCount = $agendas->count(); 
        return redirect()->route('agenda.index')
                         ->with('success', 'Agenda berhasil diperbarui.')
-                        ->with('type', 'update');
+                        ->with('type', 'update')
+                        ->with('unreadCount', $unreadCount);
     }
       
     public function updateStatus($id)

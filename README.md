@@ -64,6 +64,14 @@ Selamat mencoba, dan semoga membantu!
 
 
 
+
+
+
+
+
+
+
+
 Berikut adalah panduan lengkap untuk menjalankan project Laravel yang telah di-download dari GitHub, mulai dari instalasi Composer hingga menjalankan server dengan `php artisan serve`:
 
 ### 1. **Install Composer**

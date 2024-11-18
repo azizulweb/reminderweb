@@ -6,30 +6,6 @@
 
 <div class="container">
 
-    {{-- @if(session('success'))
-        @php
-        $type = session('type');
-        $alertClass = '';
-
-        switch ($type) {
-            case 'store':
-                $alertClass = 'alert-info';
-                break;
-            case 'update':
-                $alertClass = 'alert-warning';
-                break;
-            case 'delete':
-                $alertClass = 'alert-danger';
-                break;
-            default:
-                $alertClass = 'alert-info';
-                break;
-        }
-        @endphp
-        <div class="alert {{ $alertClass }}">
-            {{ session('success') }}
-        </div>
-    @endif --}}
     {{-- Notifikasi hanya muncul sekali setelah operasi --}}
     @if(session('success'))
         @if(session('type') == 'store')
@@ -69,6 +45,12 @@
                             id="status-button-{{ $agenda->id }}" onclick="handleStatusChange('{{ $agenda->id }}', {{ $agenda->is_done ? 'true' : 'false' }})">
                             {{ $agenda->is_done ? 'Selesai' : 'Belum' }}
                         </button>
+                        <button type="button" class="btn btn-primary" onclick="handleViewDetails({{ json_encode($agenda) }})">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                            </svg>
+                        </button>                        
                     </td>
                 </tr>
                 @empty
@@ -163,108 +145,19 @@
         });
     }
 
+    function handleViewDetails(agenda) {
+    Swal.fire({
+        title: 'Detail Kegiatan',
+        html: `
+            <p><strong>Nama Kegiatan:</strong> ${agenda.nama_kegiatan}</p>
+            <p><strong>Deskripsi Kegiatan:</strong> ${agenda.deskripsi_singkat}</p>
+            <p><strong>Tanggal:</strong> ${agenda.tanggal_kegiatan}</p>
+            <p><strong>Waktu:</strong> ${agenda.time_start} - ${agenda.time_end}</p>
+            ${agenda.activity_picture ? `<img src="/storage/${agenda.activity_picture}" alt="Gambar Kegiatan" class="swal-image">` : ''}
+        `,
+    });
+}
+
 </script>
 @endsection
-
-{{-- <script>
-    function updateStatus(id, isDone) {
-        if (!isDone) {
-            // Jika status "Belum", ubah tombol menjadi "Selesai"
-            document.getElementById('status-button-' + id).classList.remove('btn-secondary');
-            document.getElementById('status-button-' + id).classList.add('btn-success');
-            document.getElementById('status-button-' + id).innerText = 'Selesai';
-            
-            // Setelah tombol diubah menjadi "Selesai", tambahkan event konfirmasi penghapusan
-            document.getElementById('status-button-' + id).onclick = function() {
-                confirmDelete(id);
-            };
-
-            // Update status di server
-            fetch(`/agenda/destroy/${id}`, {
-                method: 'delete',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
-            }).catch(error => console.log(error));
-        }
-    }
-
-    function confirmDelete(id) {
-        Swal.fire({
-            title: 'Apakah Anda yakin?',
-            text: "Setelah konfirmasi, agenda ini akan dihapus dari tabel.",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, hapus!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Hapus baris tabel setelah konfirmasi
-                document.getElementById(`agenda-${id}`).remove();
-                Swal.fire('Dihapus!', 'Agenda telah dihapus dari tabel.', 'success');
-            }
-        });
-    }
-</script> --}}
-
-{{-- <script>
-    function updateStatus(id, isDone) {
-        const button = document.getElementById('status-button-' + id);
-        
-        if (button) {
-            if (!isDone) {
-                // Jika status belum selesai, ubah menjadi "Selesai"
-                button.classList.remove('btn-secondary');
-                button.classList.add('btn-success');
-                button.innerHTML = 'Selesai';
-
-                // Ubah tombol menjadi berfungsi untuk konfirmasi penghapusan
-                button.onclick = function() {
-                    confirmDelete(id);
-                };
-
-                // Mengupdate status di server dengan menggunakan fetch
-                fetch(`/agenda/updateStatus/${id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ is_done: true })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        Swal.fire('Berhasil!', 'Status agenda berhasil diperbarui.', 'success');
-                    } else {
-                        Swal.fire('Gagal!', 'Terjadi kesalahan saat memperbarui status.', 'error');
-                    }
-                })
-                .catch(error => console.log('Error:', error));
-            }
-        } else {
-            console.log('Button dengan ID: ' + id + ' tidak ditemukan.');
-        }
-    }
-
-    function confirmDelete(id) {
-        Swal.fire({
-            title: 'Apakah Anda yakin?',
-            text: "Setelah konfirmasi, agenda ini akan dihapus dari tabel.",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, hapus!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Hapus baris tabel setelah konfirmasi
-                document.getElementById(`agenda-${id}`).remove();
-                Swal.fire('Dihapus!', 'Agenda telah dihapus dari tabel.', 'success');
-            }
-        });
-    }
-
-</script> --}}
 

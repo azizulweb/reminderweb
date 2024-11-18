@@ -13,7 +13,7 @@
         </div>
     @endif
     
-    <form action="{{ route('agenda.update', $edit->id) }}" method="POST">
+    <form action="{{ route('agenda.update', $edit->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="form-group">
@@ -46,10 +46,26 @@
 
         <!-- Checkbox untuk Selesai/Belum -->
         <div class="form-check">
-            <input type="checkbox" name="is_done" class="form-check-input" {{ $edit->is_done ? 'checked' : '' }}>
+            <input type="hidden" name="is_done" value="0"> <!-- Nilai default -->
+            <input 
+                type="checkbox" 
+                name="is_done" 
+                value="1" 
+                class="form-check-input" 
+                {{ $edit->is_done ? 'checked' : '' }}
+            >
             <label class="form-check-label" for="is_done">Sudah Selesai</label>
-        </div>
-        
+        </div>        
+
+        <!-- Dokumentation -->
+        <div class="form-group">
+            <label for="activity_picture">Gambar Kegiatan</label>
+            <input type="file" name="activity_picture" class="form-control">
+            @if($edit->activity_picture)
+                <img src="/storage/{{ $edit->activity_picture }}" alt="Gambar Kegiatan" style="width: 100px; margin-top: 10px;">
+            @endif
+        </div>        
+
         <!-- Button Update -->
         <button type="submit" class="btn btn-primary">Update</button>
         <a href="{{ route('agenda.index') }}" class="btn btn-secondary">Kembali</a>

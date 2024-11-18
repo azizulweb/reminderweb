@@ -55,6 +55,7 @@
                     <th class="text-center" style="width: 10%;">Date</th>
                     <th class="text-center" style="width: 10%;">Time-start</th>
                     <th class="text-center" style="width: 10%;">Time-end</th>
+                    <th class="text-center" style="width: 15%;">Dokumentasi</th>
                     <th class="text-center" style="width: 10%;">Action</th>
                 </tr>
             </thead>
@@ -71,6 +72,13 @@
                     <td class="text-center">{{ \Carbon\Carbon::parse($agenda->tanggal_kegiatan)->format('d-m-Y') }}</td>
                     <td class="text-center">{{ $agenda->time_start }}</td>
                     <td class="text-center">{{ $agenda->time_end }}</td>
+                    <td class="text-center">
+                        @if($agenda->activity_picture)
+                        <img src="{{ asset('storage/' . $agenda->activity_picture) }}" alt="Gambar Kegiatan" width="100%">
+                        @else
+                            <span>Tidak ada gambar</span>
+                        @endif  
+                    </td>                    
                     <td class="text-center">
                         <div class="d-flex justify-content-center gap-2">
                             <a href="{{ route('agenda.edit', $agenda->id) }}" class="btn btn-warning btn-sm">Edit</a>

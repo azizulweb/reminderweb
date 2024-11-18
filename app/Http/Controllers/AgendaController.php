@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Agenda;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class AgendaController extends Controller
 {
@@ -55,13 +57,19 @@ class AgendaController extends Controller
             'nama_kegiatan' => 'required|string|max:255',
             'deskripsi_singkat' => 'required|string|max:1000',
             'tanggal_kegiatan' => 'required|date',
-            'profile_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'activity_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi gambar
             'time_start' => 'required|date_format:H:i',
             'time_end' => 'required|date_format:H:i',
         ]);
+        $data = $request->all();
 
-        // dd($request->all());
-        Agenda::create($request->all());
+        if ($request->hasFile('activity_picture')) {
+            $data['activity_picture'] = $request->file('activity_picture')->store('activities', 'public');
+        }
+
+        // // dd($request->all());
+        // Agenda::create($request->all());
+        Agenda::create($data);
         return redirect()->route('agenda.index')
                          ->with('success', 'Agenda berhasil ditambahkan.')
                          ->with('type', 'store');
@@ -86,20 +94,27 @@ class AgendaController extends Controller
             'nama_kegiatan' => 'required|string|max:255',
             'deskripsi_singkat' => 'required|string|max:1000',
             'tanggal_kegiatan' => 'required|date',
+            'activity_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi gambar
             'time_start' => 'required',
             'time_end' => 'required',
         ]);
 
         $agendas= Agenda::findOrFail($id);
-        $agendas->update([
-            'nama_kegiatan' => $request->nama_kegiatan,
-            'deskripsi_singkat' => $request->deskripsi_singkat,
-            'tanggal_kegiatan' => Carbon::parse($request->tanggal_kegiatan),
-            'time_start' => $request->time_start,
-            'time_end' => $request->time_end,
-            'is_done' => $request->has('is_done') ? true : false
-        ]);
+        $data = $request->all();
 
+        if ($request->hasFile('activity_picture')) {
+            if ($agendas->activity_picture) {
+                Storage::disk('public')->delete($agendas->activity_picture);
+            }
+            $data['activity_picture'] = $request->file('activity_picture')->store('activities', 'public');
+        }
+    
+        $agendas->update($data);
+    
+        $request->merge([
+            'is_done' => $request->has('is_done') ? 1 : 0,
+        ]);
+        
        $unreadCount = $agendas->count(); 
        return redirect()->route('agenda.index')
                         ->with('success', 'Agenda berhasil diperbarui.')

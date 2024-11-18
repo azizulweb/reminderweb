@@ -8,7 +8,7 @@
     <div class="card mt-4">
         <div class="card-header">Form Agenda</div>
         <div class="card-body">
-            <form action="{{ route('agenda.store') }}" method="POST">
+            <form action="{{ route('agenda.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <input type="hidden" value="{{Auth::user()->id}}" name="user_id">
@@ -31,6 +31,10 @@
                     <label for="time_end" class="form-label">Waktu Selesai</label>
                     <input type="time" name="time_end" class="form-control" id="time_end" required>
                 </div>
+                <div class="mb-3">
+                    <label for="activity_picture" class="form-label">Gambar Kegiatan</label>
+                    <input type="file" name="activity_picture" class="form-control" id="activity_picture" accept="image/*">
+                </div>                
                 <button type="submit" class="btn btn-primary">Simpan Agenda</button>
                 <a href="{{ route('agenda.index') }}" class="btn btn-secondary">Kembali</a>
             </form>

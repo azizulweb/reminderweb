@@ -16,6 +16,7 @@ class Agenda extends Model
         'nama_kegiatan',
         'deskripsi_singkat',
         'tanggal_kegiatan',
+        'activity_picture',
         'time_start',
         'time_end',
         'is_done'

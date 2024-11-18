@@ -26,6 +26,8 @@
   <link rel="stylesheet" href="{{asset('AdminLTE/plugins/daterangepicker/daterangepicker.css')}}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset('AdminLTE/plugins/summernote/summernote-bs4.min.css')}}">
+  <!-- Custom -->
+  <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
   <!-- Boostrap -->
   {{-- <link rel="stylesheet" href="{{asset('bootstrap-5.3/css/bootstrap.min.css')}}"> --}}
 </head>
@@ -109,12 +111,28 @@
         </a>
         <div class="dropdown-menu">
             <span class="dropdown-item dropdown-header">Reminder</span>
-            @foreach ($agendas as $notification)
+              @foreach ($agendas as $notification)
+              @php
+                  // Parsing tanggal kegiatan
+                  $tanggalKegiatan = \Carbon\Carbon::parse($notification->tanggal_kegiatan)->startOfDay();
+                  $hariIni = \Carbon\Carbon::now()->startOfDay();
+          
+                  // Hitung selisih hari sebagai integer
+                  $selisihHari = $hariIni->diffInDays($tanggalKegiatan, false); // False untuk hasil negatif jika di masa lalu
+              @endphp
+          
               <div class="dropdown-divider"></div>
               <a href="#" class="dropdown-item mr-6">
-                  <i class="far fa-bell mr-6"></i>Agenda: {{$notification->nama_kegiatan}} akan dilaksanakan pada {{$notification->tanggal_kegiatan}}
+                  <i class="far fa-bell mr-6"></i>
+                  @if ($selisihHari > 0)
+                  <span style="color:blue;">"Agenda {{ $notification->nama_kegiatan }}" akan dilaksanakan {{ $selisihHari }} hari lagi, pada tanggal {{ $tanggalKegiatan->format('d-m-Y') }}</span>.
+                  @elseif ($selisihHari == 0)
+                      "Agenda {{ $notification->nama_kegiatan }}" akan dilaksanakan pada Hari ini, pada tanggal {{ $tanggalKegiatan->format('d-m-Y') }}.
+                  @elseif ($selisihHari < 0)
+                  <span style="color:red;">"Agenda {{ $notification->nama_kegiatan }}" telah berlalu {{ abs($selisihHari) }} hari yang lalu, pada tanggal {{ $tanggalKegiatan->format('d-m-Y') }}.</span>
+                  @endif
               </a>
-            @endforeach
+                @endforeach
             <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>

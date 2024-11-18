@@ -1,0 +1,7 @@
+.swal-image {
+    max-width: 100%;      /* Lebar maksimum sesuai dengan container */
+    max-height: 500px;    /* Tinggi maksimum agar tidak terlalu besar */
+    object-fit: contain;  /* Menjaga proporsi gambar */
+    border-radius: 8px;   /* Membuat sudut gambar melengkung */
+    margin-top: 10px;     /* Memberikan jarak antara teks dan gambar */
+}

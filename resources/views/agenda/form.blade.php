@@ -1,6 +1,10 @@
 @extends('layout.app')
 
+@section('header')
+
 @section('content')
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/images/web.png" />
     {{-- Form Input Agenda --}}
     <div>
         <h1 class="text-center">My Agenda</h1>
@@ -40,4 +44,5 @@
             </form>
         </div>
     </div>
+    
 @endsection

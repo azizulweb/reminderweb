@@ -1,6 +1,10 @@
 @extends('layout.app')
 
+@section('header')
+
 @section('content')
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/images/web.png" />
 <style>
     .table th, .table td {
         white-space: nowrap; /* Mencegah teks turun ke bawah */

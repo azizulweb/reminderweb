@@ -1,5 +1,9 @@
 @extends('layout.app')
+
+@section('header')
+
 @section('content')
+
 <div class="container">
     <h2>Edit Agenda</h2>
 
@@ -71,4 +75,5 @@
         <a href="{{ route('agenda.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </div>
+
 @endsection

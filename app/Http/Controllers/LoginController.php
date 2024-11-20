@@ -11,7 +11,11 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-
+    //home
+    public function home()
+    {
+        return view('layout.home');
+    }
     // Tampilkan form login
     public function showLoginForm()
         {

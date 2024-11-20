@@ -5,7 +5,8 @@ use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\LoginController;
 
 // Rute untuk login
-Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('/', [LoginController::class, 'home'] )->name('layout.home');
+Route::get('/signin', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/proses-login', [LoginController::class, 'login']);
 Route::get('/registrasi', [LoginController::class, 'registrasi'])->name('regis');
 Route::post('/daftar', [LoginController::class, 'daftar'])->name('SignUp');

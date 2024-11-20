@@ -35,16 +35,40 @@ class AgendaController extends Controller
     public function myAgenda(Request $request)
     {
         $id = $request->user()->id;
-        $agendas = Agenda::where('user_id', $id)->orderBy('tanggal_kegiatan', 'asc')->get();
-        $unreadCount = $agendas->count();
+        if($id){
+            $agendas = Agenda::where('user_id', $id)
+                             ->orderBy('tanggal_kegiatan', 'asc')
+                             ->orderBy('time_start', 'asc')
+                             ->get();
+
+         // Menghitung jumlah agenda yang belum selesai
+         $unreadCount = $agendas->count();
+
+        } else {
+            $agendas = Agenda::all();
+            $unreadCount = $agendas->count();
+        }
         return view('agenda.myagenda', compact('agendas', 'unreadCount'));
     }
     
     // Tampilkan form tambah agenda
-    public function create()
+    public function create(Request $request)
     {
         $agendas = Agenda::all();
-        $unreadCount = $agendas->count();
+        $id = $request->user()->id;
+        if($id){
+            $agendas = Agenda::where('user_id', $id)
+                             ->orderBy('tanggal_kegiatan', 'asc')
+                             ->orderBy('time_start', 'asc')
+                             ->get();
+
+         // Menghitung jumlah agenda yang belum selesai
+         $unreadCount = $agendas->count();
+
+        } else {
+            $agendas = Agenda::all();
+            $unreadCount = $agendas->count();
+        }
         return view('agenda.form', compact('agendas', 'unreadCount')); // Menampilkan halaman form
         
     }
@@ -61,13 +85,15 @@ class AgendaController extends Controller
             'time_start' => 'required|date_format:H:i',
             'time_end' => 'required|date_format:H:i',
         ]);
+
         $data = $request->all();
 
         if ($request->hasFile('activity_picture')) {
-            $data['activity_picture'] = $request->file('activity_picture')->store('activities', 'public');
+            $data['activity_picture'] = $request->file('activity_picture')
+                                                ->store('activities', 'public');
         }
 
-        // // dd($request->all());
+        // dd($request->all());
         // Agenda::create($request->all());
         Agenda::create($data);
         return redirect()->route('agenda.index')
@@ -77,11 +103,26 @@ class AgendaController extends Controller
       
 
       // Tampilkan form edit agenda
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $agendas = Agenda::all();
         $unreadCount = $agendas->count();
         $edit = Agenda::FindOrFail($id);
+        $id = $request->user()->id;
+        if($id){
+            $agendas = Agenda::where('user_id', $id)
+                             ->orderBy('tanggal_kegiatan', 'asc')
+                             ->orderBy('time_start', 'asc')
+                             ->get();
+
+         // Menghitung jumlah agenda yang belum selesai
+         $unreadCount = $agendas->count();
+
+        } else {
+            $agendas = Agenda::all();
+            $unreadCount = $agendas->count();
+        }
+        
         // dd($agendas);
         return view('agenda.edit', compact('agendas', 'edit', 'unreadCount'))
                     ->with('type', 'update');

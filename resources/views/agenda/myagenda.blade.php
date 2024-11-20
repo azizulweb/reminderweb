@@ -3,32 +3,7 @@
 @section('header')
 
 @section('content')
-<!-- Favicon-->
-<link rel="icon" type="image/x-icon" href="assets/images/web.png" />
-<style>
-    .table th, .table td {
-        white-space: nowrap; /* Mencegah teks turun ke bawah */
-        text-align: center;  /* Memusatkan teks di tengah */
-        color: rgba(0, 0, 0, 0.767);
-    }
 
-    .table th {
-        min-width: 120px;    /* Atur lebar minimum untuk judul */
-        color: rgba(0, 0, 0, 0.767);
-    }
-
-    .table-responsive {
-        overflow-x: auto;    /* Membuat tabel responsif */
-        color: rgba(0, 0, 0, 0.767);
-        width: 100%;
-        /* height: 50%; */
-    }
-
-    .d-flex {
-        display: flex;
-        gap: 10px; /* Jarak antar button */
-    }
-</style>
 @if(session('success'))
     @if(session('type') == 'delete')
         <div class="alert alert-danger">
@@ -105,26 +80,5 @@
         </table>
     </div>
 </div>
-
-<!-- Sweet Alert -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    function confirmDelete(id) {
-        Swal.fire({
-            title: 'Apakah Anda yakin?',
-            text: "Setelah dikonfirmasi, agenda ini akan dihapus dari tabel.",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, hapus!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Submit form secara manual setelah konfirmasi SweetAlert
-                document.getElementById('delete-form-' + id).submit();
-            }
-        });
-    }
-</script>
 
 @endsection

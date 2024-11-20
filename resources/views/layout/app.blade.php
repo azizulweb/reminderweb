@@ -55,7 +55,7 @@
 
 
 <body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
+  <div class="wrapper">
 
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
@@ -268,7 +268,10 @@
   </div>
 <!-- ./wrapper -->
 
-
+<!--Js/App.Js-->
+<script src="{{asset('js/app.js')}}"></script>
+{{-- SweetAlert dan script perubahan status --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Js Boostrap -->
 {{-- <script src="{{asset('bootstrap-5.3/js/bootstrap.min.js')}}"></script> --}}
 <!-- jQuery -->

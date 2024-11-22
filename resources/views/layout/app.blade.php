@@ -113,7 +113,7 @@
                     @elseif ($selisihHari == 0)
                         "Agenda {{ $notification->nama_kegiatan }}" akan dilaksanakan pada Hari ini, pada tanggal {{ $tanggalKegiatan->format('d-m-Y') }}.
                     @elseif ($selisihHari < 0)
-                    <span style="color:blue;">"Agenda {{ $notification->nama_kegiatan }}" telah berlalu {{ abs($selisihHari) }} hari yang lalu, pada tanggal {{ $tanggalKegiatan->format('d-m-Y') }}.</span>
+                    <span style="color:blue;">"Agenda {{ $notification->nama_kegiatan }}" telah dilaksanakan {{ abs($selisihHari) }} hari yang lalu, pada tanggal {{ $tanggalKegiatan->format('d-m-Y') }}.</span>
                     @endif
                 </a>
                   @endforeach

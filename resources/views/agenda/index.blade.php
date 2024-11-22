@@ -60,11 +60,6 @@
                 @endforelse
             </tbody>
         </table>
-
-        <!-- Button untuk menambah agenda baru -->
-        <div class="title-container" style="flex-grow: 1; text-align: center;">
-            <a href="{{ route('agenda.create') }}" class="btn btn-primary ">Tambah Agenda</a>
-        </div>
     </div>
 </div>
 

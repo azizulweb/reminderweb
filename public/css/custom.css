@@ -1,3 +1,29 @@
+h1 {
+    color: rgba(32, 30, 30, 0.849);
+    font-family: "Fantasy", Times, serif;
+    font-style: italic;
+  }
+  .content-wrapper {
+  background-image: url("{{asset('assets/images/wallp.jpg')}}");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  }
+
+
+.text-form {
+    color: rgba(255, 255, 255, 0.849);
+    font-family: 'Poppins', sans-serif;
+    font-style: italic;
+
+}
+
+thead tr.bg-dark th {
+    color: white !important; /* Gunakan !important jika ada style yang menimpa */
+}
+
+
 .table th, .table td {
     white-space: nowrap; /* Mencegah teks turun ke bawah */
     text-align: center;  /* Memusatkan teks di tengah */
@@ -23,7 +49,7 @@
 
 .swal-image {
     max-width: 100%;      /* Lebar maksimum sesuai dengan container */
-    max-height: 500px;    /* Tinggi maksimum agar tidak terlalu besar */
+    max-height: 400px;    /* Tinggi maksimum agar tidak terlalu besar */
     object-fit: contain;  /* Menjaga proporsi gambar */
     border-radius: 8px;   /* Membuat sudut gambar melengkung */
     margin-top: 10px;     /* Memberikan jarak antara teks dan gambar */

@@ -43,6 +43,6 @@
                 <a href="{{ route('agenda.index') }}" class="btn btn-secondary">Kembali</a>
             </form>
         </div>
-    </div>
+    </div>   
     
 @endsection

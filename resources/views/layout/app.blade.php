@@ -29,28 +29,11 @@
   <link rel="stylesheet" href="{{asset('AdminLTE/plugins/summernote/summernote-bs4.min.css')}}">
   <!-- Custom -->
   <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-  <!-- Boostrap -->
-  {{-- <link rel="stylesheet" href="{{asset('bootstrap-5.3/css/bootstrap.min.css')}}"> --}}
+  
+  
 </head>
 <style>
-  h1 {
-    color: rgba(32, 30, 30, 0.849);
-    font-family: 'Poppins', sans-serif;
-    font-style: italic;
-  }
-  .content-wrapper {
-  background-image: url("{{asset('assets/images/wallp.jpg')}}");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  }
 
-  .carousel-inner > .item > img,
-  .carousel-inner > .item > a > img {
-      width: 70%;
-      margin: auto;
-  }
 </style>
 
 
@@ -59,7 +42,7 @@
 
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__shake" src="{{asset('assets/images/web.png')}}" alt="AdminLTELogo" height="60" width="60">
+      <img class="animation__shake" src="{{asset('assets/images/web.png')}}" alt="ReminderWeb" height="60" width="60">
     </div>
 
     <!-- Navbar -->
@@ -207,11 +190,12 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Calendar</p>
+                  <a href="{{ route('agenda.calendar') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Calendar</p>
                   </a>
-                </li>
+              </li>
+              
               </ul>
             </li>
           </ul>
@@ -268,10 +252,6 @@
   </div>
 <!-- ./wrapper -->
 
-<!--Js/App.Js-->
-<script src="{{asset('js/app.js')}}"></script>
-{{-- SweetAlert dan script perubahan status --}}
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Js Boostrap -->
 {{-- <script src="{{asset('bootstrap-5.3/js/bootstrap.min.js')}}"></script> --}}
 <!-- jQuery -->

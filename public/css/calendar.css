@@ -1,0 +1,64 @@
+/* CSS untuk memperbaiki tampilan form SweetAlert */
+#calendarForm {
+    max-width: 400px; /* Atur lebar maksimal form */
+    margin: 0 auto; /* Pusatkan form secara horizontal */
+}
+
+#calendarForm input,
+#calendarForm textarea {
+    display: block; /* Atur semua input dan textarea menjadi block */
+    width: 100%; /* Lebar penuh sesuai container */
+    padding: 10px; /* Spasi internal */
+    margin-bottom: 15px; /* Jarak antar elemen */
+    border: 1px solid #ccc; /* Border default */
+    border-radius: 5px; /* Border dengan sudut melengkung */
+    font-size: 14px; /* Ukuran font */
+    box-sizing: border-box; /* Atur padding agar tidak melampaui ukuran lebar */
+}
+
+#calendarForm textarea {
+    resize: vertical; /* Izinkan resizing hanya vertikal */
+    min-height: 100px; /* Tinggi minimal */
+}
+
+#calendarForm input[type="file"] {
+    padding: 3px; /* Kurangi padding untuk input file */
+    font-size: 13px; /* Ukuran font untuk file input */
+}
+
+.swal2-popup {
+    width: 90%; /* Sesuaikan dengan layar pengguna */
+    max-width: 600px; /* Lebar maksimal */
+    min-height: 400px; /* Tinggi minimal */
+    overflow: hidden; /* Sembunyikan elemen yang meluap */
+    border-radius: 8px; /* Border melengkung */
+}
+
+.swal2-title {
+    font-size: 24px; /* Ukuran judul */
+    margin-bottom: 20px; /* Jarak bawah judul */
+    color: #333; /* Warna teks judul */
+}
+
+.swal2-html-container {
+    font-size: 16px; /* Ukuran font konten */
+    color: #555; /* Warna teks */
+    text-align: left; /* Perataan teks ke kiri */
+}
+
+.btn-custom {
+    background-color: #000000; /* Latar belakang hitam */
+    color: #ffffff; /* Teks putih */
+    padding: 10px 20px; /* Padding di sekitar teks */
+    text-decoration: none; /* Menghapus garis bawah */
+    border-radius: 5px; /* Sudut melengkung */
+    font-size: 16px; /* Ukuran font */
+    text-align: center; /* Menyelaraskan teks */
+    display: inline-block; /* Menjadikan anchor sebagai block-level element */
+    transition: background-color 0.3s ease; /* Efek transisi */
+}
+
+.btn-custom:hover {
+    background-color: #444444; /* Latar belakang lebih terang saat hover */
+}
+

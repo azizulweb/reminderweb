@@ -20,7 +20,7 @@ class AgendaController extends Controller
                              ->orderBy('time_start', 'asc')
                              ->get();
 
-         // Menghitung jumlah agenda yang belum selesai
+         // Menghitung jumlah Notifikasi
          $unreadCount = $agendas->count();
 
         } else {
@@ -41,7 +41,7 @@ class AgendaController extends Controller
                              ->orderBy('time_start', 'asc')
                              ->get();
 
-         // Menghitung jumlah agenda yang belum selesai
+         // Menghitung jumlah Notifikasi
          $unreadCount = $agendas->count();
 
         } else {
@@ -62,7 +62,7 @@ class AgendaController extends Controller
                              ->orderBy('time_start', 'asc')
                              ->get();
 
-         // Menghitung jumlah agenda yang belum selesai
+         // Menghitung jumlah agenda Notifikasi
          $unreadCount = $agendas->count();
 
         } else {
@@ -115,7 +115,7 @@ class AgendaController extends Controller
                              ->orderBy('time_start', 'asc')
                              ->get();
 
-         // Menghitung jumlah agenda yang belum selesai
+         // Menghitung jumlah Notifikasi
          $unreadCount = $agendas->count();
 
         } else {
@@ -184,6 +184,63 @@ class AgendaController extends Controller
                         ->with('success', 'Agenda berhasil dihapus.')
                         ->with('type', 'delete');
     }
+    
 
+    //Calendar
+
+    public function calendar(Request $request)
+    {
+        $id = $request->user()->id;
+        if($id) {
+            $agendas = Agenda::where('user_id', $id) // Filter berdasarkan user yang login
+                            ->orderBy('tanggal_kegiatan', 'asc')
+                            ->orderBy('time_start', 'asc')
+                            ->get();
+
+            // Menghitung jumlah agenda Notifikasi
+            $unreadCount = $agendas->count();
+        } else {
+            // Jika tidak ada user yang login, ambil seluruh agenda
+            $agendas = Agenda::all();
+            $unreadCount = $agendas->count();
+        }
+
+        // Memastikan hanya agenda milik user yang login yang ditampilkan di kalender
+        $agendas = $agendas->map(function ($agenda) {
+            return [
+                'title' => $agenda->nama_kegiatan,
+                'start' => $agenda->tanggal_kegiatan . 'T' . $agenda->time_start, // Gabungkan dengan waktu mulai
+                'id' => $agenda->id,
+            ];
+        });
+
+        return view('agenda.calendar',  compact('agendas', 'unreadCount'));
+    }
+
+
+    public function storeFromCalendar(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required',
+            'nama_kegiatan' => 'required|string|max:255',
+            'deskripsi_singkat' => 'required|string|max:1000',
+            'tanggal_kegiatan' => 'required|date',
+            'time_start' => 'required|date_format:H:i',
+            'time_end' => 'required|date_format:H:i',
+            'activity_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+    
+        $data = $request->all();
+    
+        if ($request->hasFile('activity_picture')) {
+            $data['activity_picture'] = $request->file('activity_picture')->store('activities', 'public');
+        }
+    
+        Agenda::create($data);
+    
+        return response()->json(['success' => true, 'message' => 'Agenda berhasil ditambahkan!']);
+    }
+    
 }
+
 

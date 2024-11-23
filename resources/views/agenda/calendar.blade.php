@@ -37,7 +37,6 @@
     </style>
 </head>
 <body>
-    
     <div id="calendar"></div>
     <div>
         <a href="{{ route('agenda.index') }}" class="btn-custom">Back To menu</a>

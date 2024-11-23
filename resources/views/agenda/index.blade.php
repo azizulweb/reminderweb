@@ -141,17 +141,31 @@
     }
 
     function handleViewDetails(agenda) {
-    Swal.fire({
-        title: 'Detail Kegiatan',
-        html: `
-            <p><strong>Nama Kegiatan:</strong> ${agenda.nama_kegiatan}</p>
-            <p><strong>Deskripsi Kegiatan:</strong> ${agenda.deskripsi_singkat}</p>
-            <p><strong>Tanggal:</strong> ${agenda.tanggal_kegiatan}</p>
-            <p><strong>Waktu:</strong> ${agenda.time_start} - ${agenda.time_end}</p>
-            ${agenda.activity_picture ? `<img src="/storage/${agenda.activity_picture}" alt="Gambar Kegiatan" class="swal-image">` : ''}
-        `,
-    });
-}
+        Swal.fire({
+            title: 'Detail Kegiatan',
+            html: `
+                <div style="text-align: left; font-size: 16px; line-height: 1.8;">
+                    <p><strong>Nama Kegiatan</strong> : ${agenda.nama_kegiatan}</p>
+                    <p><strong>Deskripsi Kegiatan</strong> : <br>${agenda.deskripsi_singkat}</p>
+                    <p><strong>Tanggal</strong> : ${agenda.tanggal_kegiatan}</p>
+                    <p><strong>Waktu</strong> : ${agenda.time_start} - ${agenda.time_end}</p>
+                    ${
+                        agenda.activity_picture
+                            ? `<div style="margin-top: 15px; text-align: center;">
+                                <img src="/storage/${agenda.activity_picture}" 
+                                        alt="Gambar Kegiatan" 
+                                        style="max-width: 100%; height: auto; border-radius: 8px;">
+                            </div>`
+                            : ''
+                    }
+                </div>
+            `,
+            showCloseButton: true,
+            focusConfirm: false,
+            confirmButtonText: 'Tutup'
+        });
+    }
+
 
 </script>
 @endsection

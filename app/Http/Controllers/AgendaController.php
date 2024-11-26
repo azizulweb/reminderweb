@@ -12,25 +12,33 @@ class AgendaController extends Controller
 {
     // Tampilkan Daftar Agenda
     public function index(Request $request)
-    {
-        $id = $request->user()->id;
-        if($id){
-            $agendas = Agenda::where('user_id', $id)
-                             ->orderBy('tanggal_kegiatan', 'asc')
-                             ->orderBy('time_start', 'asc')
-                             ->get();
-
-         // Menghitung jumlah Notifikasi
-         $unreadCount = $agendas->count();
-
+    {   
+        $userId = $request->user()->id; // Mendapatkan user ID yang login
+        $keyword = $request->input('search'); // Mendapatkan query pencarian
+    
+        if ($userId) {
+            // Query agenda berdasarkan user_id dan keyword (jika ada)
+            $agendas = Agenda::where('user_id', $userId)
+                ->when($keyword, function ($query, $keyword) {
+                    $query->where('nama_kegiatan', 'like', '%' . $keyword . '%')
+                          ->orWhere('deskripsi_singkat', 'like', '%' . $keyword . '%');
+                })
+                ->orderBy('tanggal_kegiatan', 'asc')
+                ->orderBy('time_start', 'asc')
+                ->get();
+    
+            // Menghitung jumlah notifikasi berdasarkan agenda
+            $unreadCount = $agendas->count();
+    
         } else {
+            // Jika user_id tidak ditemukan, menampilkan semua agenda
             $agendas = Agenda::all();
             $unreadCount = $agendas->count();
         }
+    
         // Mengirim data agenda ke view index.blade.php
         return view('agenda.index', compact('agendas', 'unreadCount'));
     }
-    
     
     public function myAgenda(Request $request)
     {

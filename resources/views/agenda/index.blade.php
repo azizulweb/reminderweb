@@ -26,11 +26,20 @@
     <td>
         <h1 class="text-center">Daftar Agenda</h1>
     </td>
+
+    {{-- <form method="GET" action="{{ route('agenda.index') }}" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Cari agenda..." value="{{ request('search') }}">
+            <button class="btn btn-primary" type="submit">Cari</button>
+        </div>
+    </form> --}}
+    
+    <!-- Tabel agenda -->
     <div class="table-responsive">
         <table class="table table-hover table-bordered" id="agendaTable">
             <thead>
                 <tr class="bg-dark text-white text-uppercase">
-                    <th class="text-center" style="width: 1%;" >No</th>
+                    <th class="text-center" style="width: 1%;">No</th>
                     <th class="text-center" style="width: 15%;">Nama Kegiatan</th>
                     <th class="text-center" style="width: 15%;">Status</th>
                 </tr>
@@ -50,17 +59,24 @@
                                 <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
                                 <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
                             </svg>
-                        </button>                        
+                        </button>
                     </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="2" class="text-center">Agenda kamu akan ditampilkan di sini</td>
+                    <td colspan="3" class="text-center">
+                        @if(request('search'))
+                            Tidak ada agenda yang ditemukan untuk pencarian "{{ request('search') }}".
+                        @else
+                            Agenda kamu akan ditampilkan di sini.
+                        @endif
+                    </td>
                 </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
+    
 </div>
 
 {{-- SweetAlert dan script perubahan status --}}

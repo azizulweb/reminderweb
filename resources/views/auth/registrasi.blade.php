@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="{{asset('AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('AdminLTE//dist/css/adminlte.min.css')}}">
+  <!-- loginstyle -->
+  <link rel="stylesheet" href="{{asset('bootstrap-5.3/css/bootstrap.min.css') }}">
 </head>
 <body class="hold-transition register-page bg-dark">
 
@@ -27,7 +29,7 @@
             <img class="animation__shake" src="{{asset('assets/images/web.png')}}" alt="AdminLTELogo" height="60" width="60">
         </div>
         <div class="title-container" style="flex-grow: 1; text-align: center;">
-            <p href="#" class="h1 text-white"><b>Sign Up</p>
+            <p href="#" class="h1 text-white"><b>Register</p>
         </div>
     </div>
     <div class="card-body register-card-body">
@@ -82,7 +84,10 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
+            <button type="submit" class="btn btn-primary btn-block">Save</button>
+          </div>
+          <div class="col-4">
+            <a class="btn btn-dark" type="button" href="{{ route('login') }}">Back</a>
           </div>
           <!-- /.col -->
         </div>
@@ -93,6 +98,8 @@
 </div>
 <!-- /.register-box -->
 
+<!-- jQuery -->
+<script src="{{ asset('bootstrap-5.3/js/bootstrap.bundle.min.js') }}"></script>
 <!-- jQuery -->
 <script src="{{asset('AdminLTE/plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap 4 -->

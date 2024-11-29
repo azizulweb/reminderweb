@@ -23,6 +23,7 @@
             <!-- Navigation-->
             <nav class="navbar navbar-expand-lg navbar-dark bg-head">
                 <div class="container px-5">
+                    <img class="animation__shake" src="{{asset('assets/images/web.png')}}" alt="AdminLTELogo" height="60" width="60" style=" margin-left: 0.9px;">
                     <a class="navbar-brand" href="index.html">Reminder<span>Web</span></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -47,7 +48,48 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="{{asset('images/formal.jpg')}}" alt="..." /></div>
+                        <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+                            <div id="headerCarousel" class="carousel slide my-5" data-bs-ride="carousel">
+                                <!-- Indicators -->
+                                <div class="carousel-indicators">
+                                    <button type="button" data-bs-target="#headerCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                    <button type="button" data-bs-target="#headerCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                    <button type="button" data-bs-target="#headerCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                    <button type="button" data-bs-target="#headerCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                                    <button type="button" data-bs-target="#headerCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                                </div>
+                        
+                                <!-- Slides -->
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="{{ asset('images/teamwork.jpg') }}" alt="Image 1">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="{{ asset('images/yogya.jpg') }}" alt="Image 2">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="{{ asset('images/kunjunganIndustri.jpg') }}" alt="Image 3">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="{{ asset('images/perpustakaan.jpg') }}" alt="Image 3">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="{{ asset('images/coffe.jpg') }}" alt="Image 3">
+                                    </div>
+                                </div>
+                        
+                                <!-- Controls -->
+                                <button class="carousel-control-prev" type="button" data-bs-target="#headerCarousel" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#headerCarousel" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </header>

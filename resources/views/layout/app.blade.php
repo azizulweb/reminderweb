@@ -231,7 +231,7 @@
     <div>
       <div>
         <footer class="main-footer">
-          <strong>Copyright &copy; 2024 <a href="https://adminlte.io">Manajemen Proyek Sistem Informasi</a>.</strong>
+          <strong>Copyright &copy; 2024 <a href="{{route('layout.home')}}">Manajemen Proyek Sistem Informasi</a>.</strong>
           All rights reserved.
           <div class="float-right d-none d-sm-inline-block">
             <b>Kelompok</b> 7.0

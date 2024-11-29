@@ -20,8 +20,10 @@ class AgendaController extends Controller
             // Query agenda berdasarkan user_id dan keyword (jika ada)
             $agendas = Agenda::where('user_id', $userId)
                 ->when($keyword, function ($query, $keyword) {
-                    $query->where('nama_kegiatan', 'like', '%' . $keyword . '%')
-                          ->orWhere('deskripsi_singkat', 'like', '%' . $keyword . '%');
+                    $query->where(function ($query) use ($keyword) {
+                        $query->where('nama_kegiatan', 'like', '%' . $keyword . '%')
+                              ->orWhere('deskripsi_singkat', 'like', '%' . $keyword . '%');
+                    });
                 })
                 ->orderBy('tanggal_kegiatan', 'asc')
                 ->orderBy('time_start', 'asc')

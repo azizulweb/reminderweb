@@ -46,7 +46,7 @@ class LoginController extends Controller
             $user->save();
         }
 
-        return redirect('/')->with('success', 'Account created successfully');
+        return redirect('/signin')->with('success', 'Account created successfully');
     }
 
     // Handle login request
